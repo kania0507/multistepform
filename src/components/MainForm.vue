@@ -26,29 +26,33 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/styles/_variables.scss";
+@use '../assets/styles/breakpoint' as *;
+@import "../assets/styles/all.scss";
+
 
 .main-form {
-    width: 60%;
-    min-height: 560px;
-    display: flex;
-    background-color: $white;
-    border-radius: 1rem;
-    padding: 1rem;
-    @media(max-width: 991px) {
-      max-width: 100%;
-      width: 100%;
-      height: auto;
-      flex-direction: column;
-      padding: 0;
-      background-color: transparent;
-    }
+  position: relative;
+  display: grid;
+  grid-template-columns: 275px auto;
+  inline-size: min(100%, 975px);
+  min-block-size: 600px;
+  margin: var(--space-s);
+  padding: var(--space-s) var(--space-s) var(--space-s) var(--space-s);
+  background-color: var(--neutral-white);
+  border-radius: var(--radius-h);
+  box-shadow: var(--elevation-3);
 
-    .steps {
-        position: relative;
-        width: calc(100% - 275px);
-        padding: 2rem 0.5rem 0 1rem;
-    }
+  @include breakpoint(medium) {
+    inline-size: 100%;
+    min-block-size: 75vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 </style>
