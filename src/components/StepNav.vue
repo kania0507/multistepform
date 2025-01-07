@@ -2,8 +2,9 @@
   <div class="step-tracker">
     <ol>
       <li
-        v-for="step in steps"
-        :key="step.id">
+        v-for="(step, i) in steps"
+        :key="step.id"
+        :class="{'current': i === activeStep - 1}">
         <div>
           <span>Step {{ step.id }}</span>
           <span class="font-bold">{{ step.name }}</span>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "StepNav",
   data () {
@@ -25,6 +27,12 @@ export default {
         { id: 4, name: 'Summary' }
       ]
     }
+  },
+  computed: {
+      ...mapGetters({
+        activeStep: 'getActiveStep',
+        totalSteps: 'getTotalSteps'
+    })
   }
 }
 </script>
@@ -52,6 +60,7 @@ export default {
     background-image: url('./../assets/images/bg-sidebar-mobile.svg');
     border-radius: 0;
     z-index: 0;
+    padding: var(--space-xl) var(--space-s);
   }
 }
 
@@ -87,7 +96,7 @@ li {
 
   &.current {
     &::before {
-      color: var(--primary-purplish-blue);
+      color: var(--primary-marine-blue);
       background-color: var(--primary-pastel-blue);
       border-color: var(--primary-pastel-blue);
     }

@@ -23,9 +23,6 @@
                 </label>
             </div>
         </div>
-        <footer>
-            <button class="btn" @click="nextStep">Next Step</button>
-        </footer>
     </article>
 </template>
 
@@ -54,8 +51,17 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@use '../assets/styles/breakpoint' as *;
 @import "../assets/styles/all.scss";
 .step {
-    padding: 0 var(--space-xl);
+    @include breakpoint(medium) {
+        max-width: 90vw;
+    }
+    .step__header {
+        margin-bottom: var(--space-l);
+            p {
+            color: var(--neutral-cool-gray);
+            }
+        }
 }
 </style>

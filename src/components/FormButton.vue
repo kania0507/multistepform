@@ -30,15 +30,12 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/styles/all.scss";
 button {
-  --rotate: 3deg;
-  --translate: 5px;
-
   padding: var(--space-s) var(--space-m);
   font-weight: bold;
   border-color: var(--primary-marine-blue);
   border-radius: var(--radius-m);
   border-width: 2px;
-  text-decoration: underline;
+  text-decoration: none;
   text-underline-offset: 8px;
   text-decoration-color: transparent;
   transition: all var(--animation-speed-fast) var(--cubic-bezier);
@@ -53,18 +50,17 @@ button {
     background-color: var(--primary-marine-blue);
 
     &:is(:hover, :focus-visible) {
-      rotate: var(--rotate);
-      translate: var(--translate);
+      box-shadow: 0 4px 4px var(--neutral-light-gray);
     }
   }
 
   &.secondary {
-    color: var(--primary-marine-blue);
+    color: var(--neutral-cool-gray);
     background-color: var(--neutral-white);
+    border: 0;
 
     &:is(:hover, :focus-visible) {
-      rotate: calc(var(--rotate) * -1);
-      translate: calc(var(--translate) * -1);
+      color: var(--primary-marine-blue);
     }
   }
 
@@ -74,7 +70,7 @@ button {
     border-color: var(--error-color-dark);
 
     &:is(:hover, :focus-visible) {
-      translate: 0 calc(var(--translate) * -1);
+      box-shadow: 0 2px 2px var(--neutral-light-gray);
     }
   }
 }

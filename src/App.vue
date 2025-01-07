@@ -57,4 +57,9 @@ export default {
 .text-gray {
   color: var(--neutral-cool-gray);
 }
+footer {
+  @include breakpoint(medium) {
+    display: none;
+  }
+}
 </style>
