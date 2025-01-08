@@ -2,7 +2,7 @@
     <div class="main-form">
         <StepNav />
         <section class="steps">
-            <Step1 v-if="activeStep === 1" />
+            <Step1 v-if="activeStep === 1" @user-completed="handleEmit" />
             <Step2 v-if="activeStep === 2" />
             <Step3 v-if="activeStep === 3" />
             <Step4 v-if="activeStep === 4" />
@@ -15,12 +15,13 @@
               >Go back</FormButton>
               <FormButton
                 type="submit"
-                v-if="activeStep < totalSteps"
+                v-if="activeStep < (totalSteps - 1)"
                 @click="handleNextStep"
               >Next step</FormButton>
               <FormButton
+                variant="confirm"
                 type="submit"
-                v-if="activeStep === totalSteps"
+                v-if="activeStep === (totalSteps - 1)"
                 @click="handleNextStep"
               >Confirm</FormButton>
           </div>
@@ -49,7 +50,10 @@ export default {
       FormButton
     },
     data () {
-        return {}
+        return {
+          emitReceived: false,
+          user: {}
+        }
     },
     computed: {
         ...mapGetters({
@@ -61,20 +65,20 @@ export default {
       handlePreviousStep () {
         this.$store.commit('activeStepMinus');
       },
+      handleEmit (obj) {
+        if (!this.emitReceived) {
+          this.emitReceived = true
+          this.user = obj
+        }
+      },
       handleNextStep () {
-        // validate
-        /*
-        this.$store.commit('setUser', {
-            name: this.name,
-            email: this.email,
-            phone: this.phone
-        })
-        */
-        this.$store.commit('activeStepPlus');
-
+        // validated
+        if (this.emitReceived) {
+          this.$store.commit('setUser', this.user)
+          this.$store.commit('activeStepPlus')
+        }
       }
     }
-    
 }
 </script>
 
@@ -115,7 +119,7 @@ export default {
       z-index: 2;
       background-color: var(--neutral-white);
       border-radius: var(--radius-h);
-      padding: var(--space-m);
+      padding-bottom: var(--space-xl);
     }
     .align-right {
       justify-content: end;
@@ -131,7 +135,7 @@ export default {
       max-width: 100vw;
       position: absolute;
       bottom: 0;
-      margin-left: -2.7rem;
+      margin-left: -17%;
       padding: var(--space-s) var(--space-s);
       background-color: var(--neutral-white);
     }

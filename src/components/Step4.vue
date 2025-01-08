@@ -3,7 +3,7 @@
     <div class="step__mobile">
       <header class="step__header">
         <h2>Finishing up</h2>
-        <p>Double-check everything looks OK before confirming.</p>
+        <p class="description">Double-check everything looks OK before confirming.</p>
       </header>
       <div class="form">
 
@@ -116,20 +116,17 @@
    @import "../assets/styles/all.scss";
 
   .step {
-    padding-bottom: 17px;
     .step__header {
+      margin-top: var(--space-s);
       margin-bottom: var(--space-l);
-        p {
-          color: var(--neutral-cool-gray);
-        }
     }
   }
 
   .form {
     background: var(--neutral-alabaster);
-    border-radius: 8px;
-    padding: 20px 25px 13px 20px;
-    margin-bottom: 25px;
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem 0.8125rem 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .selected-plan {
@@ -137,7 +134,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 25px;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--neutral-light-gray);
     margin-bottom: 5px;
 
@@ -177,7 +174,7 @@
 
     &__text {
       font-size: 14px;
-      color:var(--neutral-text-gray);
+      color:var(--neutral-cool-gray);
       font-weight: 500;
     }
 
@@ -196,7 +193,7 @@
 
     &__text {
       font-size: 14px;
-      color: var(--neutral-text-gray);
+      color: var(--neutral-cool-gray);
       font-weight: 500;
     }
 

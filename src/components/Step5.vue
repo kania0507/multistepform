@@ -41,7 +41,7 @@
   }
 
   p {
-    color: var(--neutral-text-gray);
+    color: var(--neutral-cool-gray);
     font-size: 16px;
     line-height: 25px;
     font-weight: 500;
@@ -49,7 +49,7 @@
   }
   @media(max-width: 991px) {
     .step__mobile {
-      padding: 80px 30px 75px;
+      // padding: 80px 30px 75px;
     }
 
     img {

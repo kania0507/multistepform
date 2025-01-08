@@ -3,7 +3,7 @@
     <div class="step__mobile">
       <header class="step__header">
         <h2>Pick add-ons</h2>
-        <p>Add-ons help enhance your gaming experience.</p>
+        <p class="description">Add-ons help enhance your gaming experience.</p>
       </header>
       <div class="form">
         <template v-for="(item, index) in accessoriesInfo" :key="index">
@@ -11,10 +11,10 @@
             <input type="checkbox" true-value="1" false-value="0" v-model="item.choice">
             <div class="addons-checkbox__checkmark"></div>
             <div class="addons-checkbox__text">
-              <span class="mainText">{{ item.mainText }}</span>
-              <span class="subText">{{ item.subText }}</span>
+              <span class="mainText bold">{{ item.mainText }}</span>
+              <span class="description">{{ item.subText }}</span>
             </div>
-            <div class="addons-checkbox__price">
+            <div class="addons-checkbox__price medium">
               <div v-if="planInfo.choice==0">
                 +${{ item.month }}/mo
               </div>
@@ -58,10 +58,8 @@
 
   .step {
     .step__header {
+      margin-top: var(--space-s);
       margin-bottom: var(--space-l);
-        p {
-          color: var(--neutral-cool-gray);
-        }
     }
   }
 
@@ -73,7 +71,7 @@
     align-items: center;
     border: 1px solid var(--neutral-light-gray);
     border-radius: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     padding: 22px;
     cursor: pointer;
     transition: .3s;
@@ -123,21 +121,14 @@
 
       .mainText {
         color: var(--primary-marine-blue);
-        font-weight: 700;
         padding-bottom: 5px;
       }
 
-      .subText {
-        font-size: 14px;
-        color: var(--neutral-text-gray);
-        font-weight: 400;
-      }
     }
 
     &__price {
       color: hsl(244, 52%, 64%);
       font-size: 14px;
-      font-weight: 500;
       letter-spacing: 0.04em;
       margin-left: auto;
     }
@@ -150,10 +141,10 @@
 
     .addons-checkbox {
       height: 60px;
-      padding: 0 15px;
+      padding: 0.5rem 1rem;
 
       &__text {
-        padding-left: 15px;
+        padding-left: 1rem;
 
         .mainText {
           font-size: 14px;

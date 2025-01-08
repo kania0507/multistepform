@@ -3,7 +3,7 @@
     <div class="step__mobile">
       <header class="step__header">
         <h2>Select your plan</h2>
-        <p>You have the option of monthly or yearly billing.</p>
+        <p class="description">You have the option of monthly or yearly billing.</p>
       </header>
       <div class="form">
         <div class="radios">
@@ -68,10 +68,8 @@
  @import "../assets/styles/all.scss";
 
  .step__header {
+  margin-top: var(--space-s);
   margin-bottom: var(--space-l);
-    p {
-      color: var(--neutral-cool-gray);
-    }
  }
 
   .radios {
@@ -108,9 +106,6 @@
 
     .title {
       display: inline-flex;
-      color: var(--primary-marine-blue);
-      font-size: 16px;
-      font-weight: 500;
       margin-bottom: 2px;
     }
 
@@ -135,7 +130,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--neutral-alabaster);
-    border-radius: 10px;
+    border-radius: 0.625rem;
 
     input {
       height: 0;
@@ -155,7 +150,7 @@
       width: 38px;
       height: 20px;
       background-color: var(--primary-marine-blue);
-      border-radius: 20px;
+      border-radius: 1.25rem;
       transition: .4s;
       margin: 0 24px;
       cursor: pointer;
@@ -176,7 +171,7 @@
 
     span {
       font-size: 15px;
-      color: var(--neutral-text-gray);
+      color: var(--neutral-cool-gray);
       font-weight: 500;
       letter-spacing: -0.02em;
 

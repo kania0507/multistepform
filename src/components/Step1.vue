@@ -6,20 +6,20 @@
                 <p>Please provide your name, email address, and phone number.</p>
             </header>
             <div class="form">
-                <label ref="name">
+                <label class="medium" ref="name">
                     <span>Name</span>
-                    <span class="error-text">This field is requireds</span>
-                    <input type="text" placeholder="e.g. Stephen King" v-model="name" @input="nameFofus">
+                    <span class="error-text">Not correct | This field is required</span>
+                    <input type="text" placeholder="e.g. Stephen King" v-model="user.name" @input="checkName()">
                 </label>
-                <label ref="email">
+                <label class="medium" ref="email">
                     <span>Email Address</span>
-                    <span class="error-text">This field is required</span>
-                    <input type="text" placeholder="e.g. stephanking@lorem.com" v-model="email" @input="emailFofus">
+                    <span class="error-text">Not correct |  This field is required</span>
+                    <input type="text" placeholder="e.g. stephanking@lorem.com" v-model="user.email" @input="checkEmail()">
                 </label>
-                <label ref="phone">
+                <label class="medium" ref="phone">
                     <span>Phone Number</span>
-                    <span class="error-text">This field is required</span>
-                    <input type="text" placeholder="e.g. +1 234 567 890" v-model="phone" @input="phoneFofus">
+                    <span class="error-text">Not correct | This field is required</span>
+                    <input type="text" placeholder="e.g. +1 234 567 890" v-model="user.phone" @input="checkPhone()">
                 </label>
             </div>
         </div>
@@ -37,16 +37,71 @@ export default {
                 email: '',
                 phone: ''
             },
-            check: false
+            check: false,
+            validated: false
         }
     },
     computed: {
         ...mapGetters(['getUser'])
     },
     mounted() {
-        this.name = this.getUser.name;
-        this.email = this.getUser.email;
-        this.phone = this.getUser.phone;
+        this.user.name = this.getUser.name;
+        this.user.email = this.getUser.email;
+        this.user.phone = this.getUser.phone;
+    },
+    methods: {
+        validateName(name) {
+            return String(name)
+                   .match(/[^\d]/)
+        },
+        validateEmail(email) {
+            return String(email)
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+        },
+        validatePhone(phone) {
+            return String(phone)
+                .toLowerCase()
+                .match(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/)
+        },
+        checkName() {
+            this.validateName(this.user.name) && this.user.name.length > 2 ? this.$refs.name.classList.remove('error') : this.$refs.name.classList.add('error');
+            if (this.user.name.length > 2 && this.validateEmail(this.user.email) && this.validatePhone(this.user.phone)) {
+                this.emitData()
+            }
+        },
+        checkEmail() {
+            this.validateEmail(this.user.email) ? this.$refs.email.classList.remove('error') : this.$refs.email.classList.add('error');
+            if (this.user.name.length > 2 && this.validateEmail(this.user.email) && this.validatePhone(this.user.phone)) {
+                this.emitData()
+            }
+        },
+        checkPhone() {
+            this.validatePhone(this.user.phone) && this.user.phone.length >= 9 ? this.$refs.phone.classList.remove('error') : this.$refs.phone.classList.add('error');
+            if (this.user.name.length > 2 && this.validateEmail(this.user.email) && this.validatePhone(this.user.phone)) {
+                this.emitData()
+            }
+        },
+        nextStep() {
+            if (this.user.name.length > 2 && this.validateEmail(this.user.email) && this.validatePhone(this.user.phone)) {             
+                this.$store.commit('setPersonalInfo', {
+                    name: this.user.name,
+                    email: this.user.email,
+                    phone: this.user.phone
+                })
+                this.$store.commit('activeStepPlus');
+            } else {
+                this.checkName();
+                this.checkEmail();
+                this.checkPhone();
+                this.check = 1;
+            }
+        },
+        emitData () {
+            this.$emit('user-completed', this.user);
+        }
     }
 }
 </script>
@@ -58,10 +113,73 @@ export default {
         max-width: 90vw;
     }
     .step__header {
+        margin-top: var(--space-s);
         margin-bottom: var(--space-l);
-            p {
+        p {
             color: var(--neutral-cool-gray);
+        }
+    }
+    label {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: var(--space-s);
+        color: var(--primary-marine-blue);
+        font-size: 14px;
+
+        input {
+            outline: 0;
+            height: 48px;
+            width: 100%;
+            margin-top: var(--space-2xs);;
+            border: 1px solid var(--neutral-light-gray);
+            border-radius: 8px;
+            padding: 0 15px 4px;
+
+            font-size: 17px;
+            color: var(--primary-marine-blue);
+            font-weight: var(--medium);
+            letter-spacing: -0.03em;
+            transition: .2s;
+
+            &::placeholder {
+                color: var(--neutral-text-gray);
+                opacity: 1;
+            }
+
+            &:-ms-input-placeholder {
+                color: var(--neutral-text-gray);
+            }
+
+            &::-ms-input-placeholder {
+                color: var(--neutral-text-gray);
+            }
+
+            &:focus {
+                border-color: var(--primary-marine-blue);
             }
         }
+    }
+    .error-text {
+        // margin-left: auto;
+        margin-left: var(--space-s);
+        color: var(--primary-strawberry-red);
+        font-size: 14px;
+        font-weight: var(--bold);
+        letter-spacing: 0.01em;
+        opacity: 0;
+        transition: .2s;
+    }
+
+    .error {
+
+        .error-text {
+            opacity: 1;
+        }
+
+        input {
+            border-color: var(--primary-strawberry-red) !important;
+        }
+    }
 }
 </style>

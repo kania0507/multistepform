@@ -73,5 +73,14 @@ button {
       box-shadow: 0 2px 2px var(--neutral-light-gray);
     }
   }
+  &.confirm {
+    color: var(--neutral-white);
+    background-color: var(--primary-purplish-blue);
+    border-color: var(--primary-purplish-blue);
+
+    &:is(:hover, :focus-visible) {
+      box-shadow: 0 2px 2px var(--primary-pastel-blue);
+    }
+  }
 }
 </style>
