@@ -7,6 +7,7 @@
             <Step3 v-if="activeStep === 3" />
             <Step4 v-if="activeStep === 4" />
             <Step5 v-if="activeStep === 5" />
+            <div v-if="isError && !emitReceived"><span class="red">Please, enter correct data</span></div>
             <div class="buttons" :class="{'align-right': activeStep === 1}">
               <FormButton
                 variant="secondary"
@@ -52,7 +53,8 @@ export default {
     data () {
         return {
           emitReceived: false,
-          user: {}
+          user: {},
+          isError: false
         }
     },
     computed: {
@@ -76,6 +78,9 @@ export default {
         if (this.emitReceived) {
           this.$store.commit('setUser', this.user)
           this.$store.commit('activeStepPlus')
+          this.isError = false
+        } else {
+          this.isError = true
         }
       }
     }
@@ -140,6 +145,9 @@ export default {
       background-color: var(--neutral-white);
     }
   }
+}
+.red {
+  color: red;
 }
 
 </style>
